@@ -35,11 +35,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({success : false , error: err.status});
 });
-
-app.listen(3000, function () {
-  console.log('App running')
-})
 
 module.exports = app;
