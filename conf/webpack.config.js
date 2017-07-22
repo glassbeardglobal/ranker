@@ -1,12 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
     main: path.resolve(__dirname, '..', 'webapp', 'src', 'index.js')
   },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[hash].js',
     path: path.resolve(__dirname, '..', 'webapp', 'build')
   },
   resolve: {
@@ -43,6 +44,11 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin([
+      path.resolve(__dirname, '..', 'webapp', 'build')
+    ], {
+      root: path.resolve(__dirname, '..', 'webapp')
+    }),
     new HtmlWebpackPlugin({
       favicon: 'webapp/public/favicon.ico',
       template: 'webapp/public/index.html'
