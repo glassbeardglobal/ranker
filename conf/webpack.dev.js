@@ -1,8 +1,6 @@
 const path = require('path');
 
-const config = require('./webpack.config.base.js');
-
-console.log('loaded!!!!!!!!!!!');
+const config = require('./webpack.config.js');
 
 const extension = {
   devtool: 'cheap-module-eval-source-map',
