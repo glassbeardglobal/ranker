@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./server/bin/www",
-    "build": "webpack",
+    "serve": "webpack-dev-server --config conf/webpack.config.dev.js --open",
+    "build": "webpack --config conf/webpack.config.prod.js",
     "lint": "./node_modules/.bin/eslint webapp/src"
   },
   "dependencies": {
@@ -30,6 +31,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
     "html-webpack-plugin": "^2.29.0",
-    "webpack": "^3.3.0"
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.5.1"
   }
 }
