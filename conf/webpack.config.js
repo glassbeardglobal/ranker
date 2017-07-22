@@ -7,7 +7,7 @@ module.exports = {
     main: path.resolve(__dirname, '..', 'webapp', 'src', 'index.js')
   },
   output: {
-    filename: '[name].[hash].js',
+    filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, '..', 'webapp', 'build')
   },
   resolve: {
@@ -44,11 +44,13 @@ module.exports = {
     ]
   },
   plugins: [
+    // Clears webapp/build folder
     new CleanWebpackPlugin([
       path.resolve(__dirname, '..', 'webapp', 'build')
     ], {
       root: path.resolve(__dirname, '..', 'webapp')
     }),
+    // Generates index.html from template
     new HtmlWebpackPlugin({
       favicon: 'webapp/public/favicon.ico',
       template: 'webapp/public/index.html'
