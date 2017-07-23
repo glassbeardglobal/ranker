@@ -1,0 +1,31 @@
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+require('./navigation.css');
+
+const links = [
+  { exact: true, to: '/', text: 'Home' },
+  { exact: true, to: '/help', text: 'Help' }
+];
+
+const Navbar = () => {
+  const navLinks = [];
+  links.forEach((link) => {
+    navLinks.push(
+      <NavLink key={link.to} exact={link.exact} to={link.to}>
+        <div className="link-wrapper">
+          {link.text}
+        </div>
+      </NavLink>
+    );
+  });
+
+  return (
+    <header>
+      <nav className="navbar">
+        {navLinks}
+      </nav>
+    </header>);
+};
+
+export default Navbar;
