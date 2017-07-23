@@ -1,3 +1,6 @@
+$nav-link-active: #000;
+$nav-link-inactive: #888;
+
 header {
     display: flex;
     flex-direction: row;
@@ -7,18 +10,24 @@ header {
 
 nav.navbar {
     > a {
-        color: #888;
+        color: $nav-link-inactive;
         text-decoration: none;
         font-weight: 400;
         font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+        transition: color 0.3s;
+
+        &.active {
+            color: $nav-link-active;
+        }
+
+        &:hover {
+            color: $nav-link-active;
+        }
 
         .link-wrapper {
             display: inline-block;
             padding: 5px 17px;
         }
-    }
-
-    a.active {
-        color: #000;
     }
 }
