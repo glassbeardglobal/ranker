@@ -5,26 +5,38 @@ const router = express.Router();
 //index
 router.get('/', function(req, res) {
 	idea.all(function(value){
-		res.send(value);
+		for(i=0; i < value.length; i++){
+			delete value[i]["_id"];
+		}
+		console.log(value);
+		res.json(value);
 	});
 });
 
 //show
 router.get('/:id', function(req, res) {
 	idea.get(req.params.id, function(value){
-		res.send(value);
+
+		//If no idea with :id exists
+		if(value.length == 0)
+			res.json({success : false});
+		else{
+			value = value[0]; //extract object from array
+			delete value["_id"];
+			res.json(value);
+		}
 	});
 });
 
 //new
 router.post('/', function(req, res) {
-	idea.new(req.query.name, req.query.desc, req.query.rating);
+	idea.new(req.body.name, req.body.desc, req.body.rating);
   res.json({success : true});
 });
 
 //update
 router.put('/:id', function(req, res) {
-	idea.update(req.params.id, req.query.name, req.query.desc, req.query.rating);
+	idea.update(req.params.id, req.body.name, req.body.desc, req.body.rating);
   res.json({success : true});
 });
 
