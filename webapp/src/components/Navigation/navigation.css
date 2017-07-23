@@ -1,0 +1,24 @@
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 15px 30px
+}
+
+nav.navbar {
+    > a {
+        color: #888;
+        text-decoration: none;
+        font-weight: 400;
+        font-family: 'Open Sans', sans-serif;
+
+        .link-wrapper {
+            display: inline-block;
+            padding: 5px 17px;
+        }
+    }
+
+    a.active {
+        color: #000;
+    }
+}

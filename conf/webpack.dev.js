@@ -21,7 +21,8 @@ const extension = {
     contentBase: path.resolve(__dirname, '..', 'webapp', 'build'),
     proxy: {
       '/api': 'http://localhost:' + normalizePort(process.env.PORT || '3000')
-    }
+    },
+    historyApiFallback: true
   }
 };
 

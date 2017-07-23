@@ -11,6 +11,7 @@ module.exports = {
         "es6": true
     },
     "rules": {
+        "comma-dangle": ["error", "never"],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
 };
