@@ -1,27 +1,32 @@
 const mongoUtil = require('../helpers/mongoUtil.js');
+const ObjectID = require('mongodb').ObjectID;
 
 exports.all = function(callback) {
 	mongoUtil.getDb().collection('ideas').find().toArray(function(err, result) {
-		if (err) throw err;
-		callback(result);
+		callback(err, result);
 	});
 };
 
-exports.get = function(name, callback) {
-  mongoUtil.getDb().collection('ideas').find({name: name}).toArray(function(err, result) {
-    if (err) throw err;
-    callback(result);
-  });
+exports.get = function(id, callback) {
+  mongoUtil.getDb().collection('ideas').findOne({_id: ObjectID(id)}, function(err, result){
+  	callback(err, result);
+  })
 };
 
-exports.new = function (name, desc, rating) {
-	mongoUtil.getDb().collection('ideas').insertOne({name: name, desc: desc, rating: rating});
+exports.new = function (name, desc, rating, callback) {
+	mongoUtil.getDb().collection('ideas').insertOne({name: name, desc: desc, rating: rating}, function(err, result) {
+		callback(err, result);
+	});
 };
 
-exports.update = function (name, newName, newDesc, newRating) {
-	mongoUtil.getDb().collection('ideas').updateOne({name: name}, {name: newName, desc: newDesc, rating: newRating});
+exports.update = function (id, newName, newDesc, newRating, callback) {
+	mongoUtil.getDb().collection('ideas').updateOne({_id: ObjectID(id)}, {name: newName, desc: newDesc, rating: newRating}, function(err, result){
+		callback(err);
+	});
 };
 
-exports.delete = function (name) {
-	mongoUtil.getDb().collection('ideas').deleteOne({name: name});
+exports.delete = function (id, callback) {
+	mongoUtil.getDb().collection('ideas').deleteOne({_id: ObjectID(id)}, function(err, result){
+		callback(err);
+	});
 };
