@@ -11,9 +11,11 @@ module.exports = {
     path: path.resolve(__dirname, '..', 'webapp', 'build')
   },
   resolve: {
+    alias: {
+      common: path.resolve(__dirname, '..', 'webapp', 'src', 'common')
+    },
     modules: [
-      path.resolve(__dirname, '..', 'node_modules'),
-      path.resolve(__dirname, '..', 'webapp', 'src')
+      path.resolve(__dirname, '..', 'node_modules')
     ]
   },
   module: {
@@ -27,6 +29,14 @@ module.exports = {
       },
       {
         oneOf: [
+          {
+            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+            loader: require.resolve('url-loader'),
+            options: {
+              limit: 10000,
+              name: 'static/media/[name].[hash:8].[ext]',
+            },
+          },
           {
             test: /\.js$/,
             exclude: /node_modules/,

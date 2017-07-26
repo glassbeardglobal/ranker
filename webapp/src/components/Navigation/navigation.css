@@ -1,28 +1,44 @@
-$nav-link-active: #000;
-$nav-link-inactive: #888;
+@import 'common/variables.css';
 
 header {
+    height: 43px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-    margin: 15px 30px
+    padding: 13px 30px 0px 30px;
+    margin-bottom: -56px;
+    background-color: rgba(0,0,0,0.025);
+    font-family: 'Open Sans', sans-serif;
+
+    .logo {
+        width: 50%;
+
+        a {
+            color: $text-main;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 22px;
+        }
+    }
 }
 
 nav.navbar {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+
     > a {
-        color: $nav-link-inactive;
+        color: $link-inactive;
         text-decoration: none;
         font-weight: 400;
-        font-family: 'Open Sans', sans-serif;
         font-size: 16px;
         transition: color 0.3s;
 
         &.active {
-            color: $nav-link-active;
+            color: $link-active;
         }
 
         &:hover {
-            color: $nav-link-active;
+            color: $link-active;
         }
 
         .link-wrapper {

@@ -22,6 +22,11 @@ const Navbar = () => {
 
   return (
     <header>
+      <div className="logo">
+        <NavLink exact to="/">
+          Ranker
+        </NavLink>
+      </div>
       <nav className="navbar">
         {navLinks}
       </nav>
