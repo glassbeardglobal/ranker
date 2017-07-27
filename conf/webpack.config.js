@@ -12,7 +12,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      common: path.resolve(__dirname, '..', 'webapp', 'src', 'common')
+      common: path.resolve(__dirname, '..', 'webapp', 'src', 'common'),
+      components: path.resolve(__dirname, '..', 'webapp', 'src', 'components')
     },
     modules: [
       path.resolve(__dirname, '..', 'node_modules')
