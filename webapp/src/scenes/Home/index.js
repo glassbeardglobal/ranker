@@ -1,14 +1,17 @@
 import React from 'react';
-import Form from 'components/Form';
+import SignupForm from 'components/SignupForm';
 
 require('./home.css');
 
 const Home = () => (
-  <div className="home container">
-    <div className="text-main">
+  <div className="home container col-wrapper">
+    <div className="text-main col-8">
       <h1>Organize your ideas with Ranker</h1>
     </div>
-    <Form />
+
+    <div className="col-4">
+      <SignupForm />
+    </div>
   </div>
 );
 
