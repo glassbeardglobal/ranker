@@ -4,7 +4,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const mongo = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
 
 const api = require('./routes/api');
 
@@ -35,11 +35,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({success : false , error: err.status});
 });
-
-app.listen(3000, function () {
-  console.log('App running')
-})
 
 module.exports = app;
