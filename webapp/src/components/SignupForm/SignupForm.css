@@ -2,8 +2,8 @@
 
 .signup-form {
     border: none;
-    box-shadow: 0 0 6px 2px #bbb;
-    padding: 6px 4px;
+    box-shadow: 0 0 8px 2px rgba(0,0,0,0.4);
+    padding: 16px 4px 26px 4px;
     border-radius: 3px;
 
     fieldset {
@@ -11,7 +11,7 @@
     }
 
     .form-field {
-        margin-bottom: 18px;
+        margin-bottom: 10px;
 
         label, input {
             display: block;
@@ -47,7 +47,7 @@
         width: 100%;
         padding: 10px 5px;
         margin-top: 8px;
-        background-color: $text-main;
+        background-color: $accent-main;
         border: none;
         border-radius: 3px;
         color: white;
