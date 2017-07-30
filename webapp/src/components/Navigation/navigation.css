@@ -1,0 +1,49 @@
+@import 'common/variables.css';
+
+header {
+    height: 43px;
+    display: flex;
+    flex-direction: row;
+    padding: 13px 30px 0px 30px;
+    margin-bottom: -56px;
+    background-color: rgba(0,0,0,0.025);
+    font-family: 'Open Sans', sans-serif;
+
+    .logo {
+        width: 50%;
+
+        a {
+            color: $text-main;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 22px;
+        }
+    }
+}
+
+nav.navbar {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+
+    > a {
+        color: $link-inactive;
+        text-decoration: none;
+        font-weight: 400;
+        font-size: 16px;
+        transition: color 0.3s;
+
+        &.active {
+            color: $link-active;
+        }
+
+        &:hover {
+            color: $link-active;
+        }
+
+        .link-wrapper {
+            display: inline-block;
+            padding: 5px 17px;
+        }
+    }
+}
