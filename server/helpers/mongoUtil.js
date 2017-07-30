@@ -1,5 +1,5 @@
-var MongoClient = require('mongodb').MongoClient;
-var _db;
+const MongoClient = require('mongodb').MongoClient;
+let _db;
 
 module.exports = {
 
@@ -7,7 +7,7 @@ module.exports = {
     MongoClient.connect(process.env.DB_URL, function(err, db){
       _db = db;
       return callback(err);
-    } );
+    });
   },
 
   getDb: function() {
