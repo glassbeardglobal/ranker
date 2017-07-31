@@ -1,0 +1,22 @@
+@import 'common/variables.css';
+
+.login {
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: calc($nav-height + 12vh);
+
+    h1 {
+        text-align: center;
+        font-weight: 400;
+        font-size: 32px;
+        margin: 52px 0px;
+    }
+
+    .login-form {
+        box-shadow: 0 0 15px 0px #ccc;
+        border: solid 1px #ccc;
+        padding: 15px 15px 30px 15px;
+        border-radius: 3px;
+    }
+}

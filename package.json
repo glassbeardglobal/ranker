@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./server/bin/www",
+    "start": "nodemon --watch server ./server/bin/www",
     "test": "mocha ./server/tests && npm run lint",
     "serve": "concurrently -k \"npm run --silent start\" \"npm run serve:web\"",
-    "serve:web": "webpack-dev-server --config conf/webpack.dev.js --open",
+    "serve:web": "webpack-dev-server --config conf/webpack.dev.js",
     "build": "webpack --config conf/webpack.prod.js -p",
     "lint": "npm run lint:web && npm run lint:server",
     "lint:web": "./node_modules/.bin/eslint webapp/src",
