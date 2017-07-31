@@ -1,7 +1,21 @@
+const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 const config = require('./webpack.config.js');
 
 const extension = {
   devtool: 'source-map'
 };
 
-module.exports = Object.assign({}, extension, config);
+const prodConfig = Object.assign({}, extension, config);
+
+// Clears webapp/build folder
+const cleanWebpack = new CleanWebpackPlugin([
+    path.resolve(__dirname, '..', 'webapp', 'build')
+  ], {
+    root: path.resolve(__dirname, '..', 'webapp')
+  });
+
+prodConfig.plugins.splice(0, 0, cleanWebpack);
+
+module.exports = prodConfig;
