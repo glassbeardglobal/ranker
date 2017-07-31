@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-import FormError from './FormError';
+import 'common/form.css';
+
+import FormError from '../Form/FormError';
 import './SignupForm.css';
 
 class SignupForm extends Component {
@@ -97,7 +99,7 @@ class SignupForm extends Component {
 
   render() {
     return (
-      <form className="signup-form">
+      <form className="signup-form form">
         <fieldset>
           <FormError error={this.state.errors} />
 

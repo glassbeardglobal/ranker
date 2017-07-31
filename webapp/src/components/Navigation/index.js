@@ -5,7 +5,7 @@ require('./navigation.css');
 
 const links = [
   { exact: true, to: '/', text: 'Home' },
-  { exact: true, to: '/help', text: 'Help' }
+  { exact: true, to: '/login', text: 'Log In' }
 ];
 
 const Navbar = () => {

@@ -1,0 +1,54 @@
+@import './variables.css';
+
+.form {
+    .form-field {
+        margin-bottom: 10px;
+
+        label, input {
+            display: block;
+        }
+
+        label {
+            padding-top: 10px;
+            font-size: 12px;
+            color: #595959;
+        }
+
+        input {
+            width: 100%;
+            padding: 9px 8px;
+            margin: 2px 14px 2px 0px;
+            border: solid 1px #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+            transition: border 0.3s;
+
+            &:focus {
+                outline: none;
+                border: solid 1px #666;
+            }
+
+            &.error {
+                border: solid 1px #f77;
+            }
+        }
+    }
+
+    button {
+        width: 100%;
+        padding: 10px 5px;
+        margin-top: 8px;
+        background-color: $accent-main;
+        border: none;
+        border-radius: 3px;
+        color: white;
+        font-weight: 600;
+        font-size: 13px;
+        outline: none;
+        cursor: pointer;
+
+        &:active {
+            background-color: #3FB1D9;
+        }
+    }
+}
