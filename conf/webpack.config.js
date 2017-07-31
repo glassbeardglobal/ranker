@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -82,12 +81,6 @@ module.exports = {
     ]
   },
   plugins: [
-    // Clears webapp/build folder
-    new CleanWebpackPlugin([
-      path.resolve(__dirname, '..', 'webapp', 'build')
-    ], {
-      root: path.resolve(__dirname, '..', 'webapp')
-    }),
     // Generates index.html from template
     new HtmlWebpackPlugin({
       favicon: 'webapp/public/favicon.ico',
