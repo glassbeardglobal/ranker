@@ -15,6 +15,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
+    "jsonwebtoken": "^7.4.1",
     "mongodb": "^2.2.30",
     "morgan": "~1.8.1",
     "prop-types": "^15.5.10",
@@ -28,7 +29,6 @@
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
     "sinon": "^2.4.1",
-    
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
