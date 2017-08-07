@@ -5,8 +5,10 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+
 const api = require('./routes/api');
 const login = require('./routes/login');
+const join = require('./routes/join');
 
 const app = express();
 
@@ -19,12 +21,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/login', login);
+app.use('/join', join);
 
 // route middleware to verify a token
 app.use(function(req, res, next) {
   let token = req.body.token || req.query.token || req.headers['x-access-token'];
   if(token){
-    jwt.verify(token, 'shhhhh', function(err, decoded) {
+    jwt.verify(token, process.env.JWT_KEY, function(err, decoded) {
       if(err){ 
         return res.json({ success: false, message: 'Failed to authenticate token.' });  
       }   

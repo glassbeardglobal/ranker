@@ -17,8 +17,7 @@ router.post('/', function(req, res) {
         res.json({success: false, message: 'Authentication failed. Wrong password.'});
       }
       else {
-        var token = jwt.sign(user, 'shhhhh');
-        console.log(jwt.decode('awefjiowe'));
+        var token = jwt.sign(user, process.env.JWT_KEY);
         res.json({success: true, message: 'Authenticated', token: token});
       }
     }
