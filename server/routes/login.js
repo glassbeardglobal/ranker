@@ -10,11 +10,13 @@ router.post('/', function(req, res) {
     if (err) return next(err);
 
     if(!user) {
-      res.json({sucess: false, message: 'Authentication failed. User not found.'});
+      let error = new Error('Authentication failed. User not found.')
+      next(error);
     } 
     else if(user) {
       if(user.password != req.body.password){
-        res.json({success: false, message: 'Authentication failed. Wrong password.'});
+        let error = new Error('Authentication failed. Wrong password.');
+        next(error);
       }
       else {
         var token = jwt.sign(user, process.env.JWT_KEY);

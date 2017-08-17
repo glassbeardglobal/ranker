@@ -4,11 +4,8 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
 
-const api = require('./routes/api');
-const login = require('./routes/login');
-const join = require('./routes/join');
+const middlewares = require('./middlewares.js');
 
 const app = express();
 
@@ -20,33 +17,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/login', login);
-app.use('/join', join);
+app.use('/login', require('./routes/login'));
+app.use('/join', require('./routes/join'));
 
-// route middleware to verify a token
-app.use(function(req, res, next) {
-  let token = req.body.token || req.query.token || req.headers['x-access-token'];
-  if(token){
-    jwt.verify(token, process.env.JWT_KEY, function(err, decoded) {
-      if(err){ 
-        return res.json({ success: false, message: 'Failed to authenticate token.' });  
-      }   
-      else {
-        req.decoded = decoded;    
-        next();
-      }
-    });
-  } 
-  else{
-    return res.status(403).send({ 
-        success: false, 
-        message: 'No token provided.' 
-    });
-  }
-});
+app.use(middlewares.authenticate);
 
-
-app.use('/api', api);
+app.use('/api', require('./routes/api'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -63,7 +39,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.json({success : false , error: err.status});
+  res.json({success : false , error: err.message});
 });
 
 module.exports = app;
