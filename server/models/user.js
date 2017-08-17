@@ -1,4 +1,5 @@
 const mongoUtil = require('../helpers/mongoUtil.js');
+const cryptoUtil = require('../helpers/cryptoUtil.js')
 const ObjectID = require('mongodb').ObjectID;
 
 exports.all = function(callback) {
@@ -14,14 +15,18 @@ exports.get = function(id, callback) {
 };
 
 exports.new = function (username, password, callback) {
-  mongoUtil.getDb().collection('users').insertOne({username: username, password: password}, function(err, result) {
-    callback(err, result);
+  cryptoUtil.saltHashPassword(password, function(result){
+    mongoUtil.getDb().collection('users').insertOne({username: username, password: result.passwordHash, salt: result.salt}, function(err, result) {
+      callback(err, result);
+    });
   });
 };
 
 exports.update = function (id, newUsername, newPassword, callback) {
-  mongoUtil.getDb().collection('users').updateOne({_id: ObjectID(id)}, {username: newUsername, password: newPassword}, function(err, result){
-    callback(err);
+  cryptoUtil.saltHashPassword(password, function(result){  
+    mongoUtil.getDb().collection('users').updateOne({_id: ObjectID(id)}, {username: newUsername, password: result.passwordHash, salt: result.salt}, function(err, result){
+      callback(err);
+    });
   });
 };
 
