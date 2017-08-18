@@ -14,9 +14,9 @@ exports.get = function(id, callback) {
   });
 };
 
-exports.new = function (username, password, callback) {
+exports.new = function (username, password, isAdmin, callback) {
   cryptoUtil.saltHashPassword(password, function(result){
-    mongoUtil.getDb().collection('users').insertOne({username: username, password: result.passwordHash, salt: result.salt}, function(err, result) {
+    mongoUtil.getDb().collection('users').insertOne({username: username, password: result.passwordHash, salt: result.salt, isAdmin: isAdmin}, function(err, result) {
       callback(err, result);
     });
   });

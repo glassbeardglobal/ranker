@@ -35,8 +35,8 @@ describe('User', function(){
         collection: sinon.stub().returns({insertOne: callback})
       });
 
-      user.new("username", "password", 10, function(err, result){});
-      sinon.assert.calledWith(callback, {username: 'username', password: 'hashed password', salt: 'salt'}); 
+      user.new("username", "password", false, function(err, result){});
+      sinon.assert.calledWith(callback, {username: 'username', password: 'hashed password', salt: 'salt', isAdmin: false}); 
 
       cryptoUtil.saltHashPassword.restore();     
     });
