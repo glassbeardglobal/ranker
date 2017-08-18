@@ -1,16 +1,17 @@
 const MongoClient = require('mongodb').MongoClient;
-let _db;
+
+let db;
 
 module.exports = {
 
-  connectToServer: function(callback) {
-    MongoClient.connect(process.env.DB_URL, function(err, db){
-      _db = db;
+  connectToServer(callback) {
+    MongoClient.connect(process.env.DB_URL, (err, connection) => {
+      db = connection;
       return callback(err);
     });
   },
 
-  getDb: function() {
-    return _db;
-  }
+  getDb() {
+    return db;
+  },
 };

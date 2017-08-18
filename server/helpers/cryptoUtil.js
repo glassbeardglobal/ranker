@@ -1,30 +1,30 @@
 const crypto = require('crypto');
 
-let genRandomString = function(length) {
-    return crypto.randomBytes(Math.ceil(length/2)).toString('hex').slice(0,length);
+function genRandomString(length) {
+  return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
 }
 
-let sha512 = function(password, salt){
-  let hash = crypto.createHmac('sha512', salt); 
+function sha512(password, salt) {
+  const hash = crypto.createHmac('sha512', salt);
   hash.update(password);
-  let value = hash.digest('hex');
+  const value = hash.digest('hex');
   return {
-      salt: salt,
-      passwordHash: value
+    salt,
+    passwordHash: value,
   };
 }
 
 module.exports = {
 
-  saltHashPassword: function(userpassword, callback) {
-    let salt = genRandomString(16); 
-    let passwordData = sha512(userpassword, salt);
+  saltHashPassword(userpassword, callback) {
+    const salt = genRandomString(16);
+    const passwordData = sha512(userpassword, salt);
 
     callback(passwordData);
   },
 
-  getHashFromSalt: function(userpassword, salt, callback) {
-    let passwordData = sha512(userpassword, salt.toString('hex'));
+  getHashFromSalt(userpassword, salt, callback) {
+    const passwordData = sha512(userpassword, salt.toString('hex'));
     callback(passwordData.passwordHash);
-  }
+  },
 };

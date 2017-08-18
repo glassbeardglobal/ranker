@@ -1,28 +1,25 @@
-const user = require('../models/user.js');
-const express = require('express');
-const router = express.Router();
+/* eslint-disable consistent-return */
 const jwt = require('jsonwebtoken');
+const express = require('express');
+
 const mongoUtil = require('../helpers/mongoUtil.js');
 const cryptoUtil = require('../helpers/cryptoUtil.js');
-const ObjectID = require('mongodb').ObjectID;
 
-router.post('/', function(req, res, next) {
-  mongoUtil.getDb().collection('users').findOne({username: req.body.username}, function(err, user){
+const router = express.Router();
+
+router.post('/', (req, res, next) => {
+  mongoUtil.getDb().collection('users').findOne({ username: req.body.username }, (err, user) => {
     if (err) return next(err);
 
-    if(!user) {
-      let error = new Error('Authentication failed. User not found.')
-      next(error);
-    } 
-    else if(user) {
-      cryptoUtil.getHashFromSalt(req.body.password, user.salt, function(result){
-        if(user.password != result){
-          let error = new Error('Authentication failed. Wrong password.');
-          next(error);
-        }
-        else {
-          var token = jwt.sign(user, process.env.JWT_KEY);
-          res.json({success: true, message: 'Authenticated', token: token});
+    if (!user) {
+      return next(new Error('Authentication failed. User not found.'));
+    } else if (user) {
+      cryptoUtil.getHashFromSalt(req.body.password, user.salt, (result) => {
+        if (user.password !== result) {
+          next(new Error('Authentication failed. Wrong password.'));
+        } else {
+          const token = jwt.sign(user, process.env.JWT_KEY);
+          res.json({ success: true, message: 'Authenticated', token });
         }
       });
     }
