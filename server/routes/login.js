@@ -14,14 +14,13 @@ router.post('/', (req, res, next) => {
     if (!user) {
       return next(new Error('Authentication failed. User not found.'));
     } else if (user) {
-      cryptoUtil.getHashFromSalt(req.body.password, user.salt, (result) => {
-        if (user.password !== result) {
-          next(new Error('Authentication failed. Wrong password.'));
-        } else {
-          const token = jwt.sign(user, process.env.JWT_KEY);
-          res.json({ success: true, message: 'Authenticated', token });
-        }
-      });
+      const result = cryptoUtil.getHashFromSalt(req.body.password, user.salt);
+      if (user.password !== result) {
+        next(new Error('Authentication failed. Wrong password.'));
+      } else {
+        const token = jwt.sign(user, process.env.JWT_KEY);
+        res.json({ success: true, message: 'Authenticated', token });
+      }
     }
   });
 });

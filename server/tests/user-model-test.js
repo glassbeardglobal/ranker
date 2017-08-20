@@ -29,7 +29,7 @@ describe('User', () => {
     it('should call insertOne(id) on db', () => {
       const callback = sinon.spy();
 
-      sinon.stub(cryptoUtil, 'saltHashPassword').callsArgWith(1, { salt: 'salt', passwordHash: 'hashed password' });
+      sinon.stub(cryptoUtil, 'saltHashPassword').returns({ salt: 'salt', passwordHash: 'hashed password' });
 
       sinon.stub(mongoUtil, 'getDb').returns({
         collection: sinon.stub().returns({ insertOne: callback }),
@@ -46,7 +46,7 @@ describe('User', () => {
     it('should call updateOne(id) on db', () => {
       const callback = sinon.spy();
 
-      sinon.stub(cryptoUtil, 'saltHashPassword').callsArgWith(1, { salt: 'salt', passwordHash: 'hashed password' });
+      sinon.stub(cryptoUtil, 'saltHashPassword').returns({ salt: 'salt', passwordHash: 'hashed password' });
 
       sinon.stub(mongoUtil, 'getDb').returns({
         collection: sinon.stub().returns({ updateOne: callback }),

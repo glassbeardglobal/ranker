@@ -16,18 +16,16 @@ exports.get = (id, callback) => {
 };
 
 exports.new = (username, password, isAdmin, callback) => {
-  cryptoUtil.saltHashPassword(password, (hashResult) => {
-    mongoUtil.getDb().collection('users').insertOne({ username, password: hashResult.passwordHash, salt: hashResult.salt, isAdmin }, (err, result) => {
-      callback(err, result);
-    });
+  const hashResult = cryptoUtil.saltHashPassword(password);
+  mongoUtil.getDb().collection('users').insertOne({ username, password: hashResult.passwordHash, salt: hashResult.salt, isAdmin }, (err, result) => {
+    callback(err, result);
   });
 };
 
 exports.update = (id, newUsername, newPassword, callback) => {
-  cryptoUtil.saltHashPassword(newPassword, (hashResult) => {
-    mongoUtil.getDb().collection('users').updateOne({ _id: ObjectID(id) }, { username: newUsername, password: hashResult.passwordHash, salt: hashResult.salt }, (err) => {
-      callback(err);
-    });
+  const hashResult = cryptoUtil.saltHashPassword(newPassword);
+  mongoUtil.getDb().collection('users').updateOne({ _id: ObjectID(id) }, { username: newUsername, password: hashResult.passwordHash, salt: hashResult.salt }, (err) => {
+    callback(err);
   });
 };
 

@@ -16,15 +16,16 @@ function sha512(password, salt) {
 
 module.exports = {
 
-  saltHashPassword(userpassword, callback) {
+  saltHashPassword(userpassword) {
     const salt = genRandomString(16);
     const passwordData = sha512(userpassword, salt);
 
-    callback(passwordData);
+    return passwordData;
   },
 
-  getHashFromSalt(userpassword, salt, callback) {
+  getHashFromSalt(userpassword, salt) {
     const passwordData = sha512(userpassword, salt.toString('hex'));
-    callback(passwordData.passwordHash);
+    
+    return passwordData.passwordHash;
   },
 };
