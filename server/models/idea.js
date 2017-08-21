@@ -23,7 +23,11 @@ exports.new = (name, desc, rating, callback) => {
 };
 
 exports.update = (id, newName, newDesc, newRating, callback) => {
-  mongoUtil.getDb().collection(collectionName).updateOne({ _id: ObjectID(id) }, { name: newName, desc: newDesc, rating: newRating }, (err) => {
+  mongoUtil.getDb().collection(collectionName).updateOne({ _id: ObjectID(id) }, {
+    name: newName,
+    desc: newDesc,
+    rating: newRating,
+  }, (err) => {
     callback(err);
   });
 };
