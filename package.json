@@ -49,6 +49,7 @@
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.29.0",
     "mocha": "^3.4.2",
+    "mongodb-migrate": "^2.0.2",
     "nodemon": "^1.11.0",
     "postcss-import": "^10.0.0",
     "postcss-loader": "^2.0.6",
