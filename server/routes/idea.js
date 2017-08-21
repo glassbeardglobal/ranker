@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const express = require('express');
 const idea = require('../models/idea.js');
 

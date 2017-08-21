@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const express = require('express');
 const user = require('../models/user.js');
 
@@ -40,6 +39,14 @@ router.post('/', (req, res, next) => {
   user.new(req.body.username, req.body.password, false, (err, result) => {
     if (err) return next(err);
     res.json(result.insertedId);
+  });
+});
+
+
+router.put('/', (req, res, next) => {
+  user.update(req.decoded._id, req.body.username, req.body.password, (err) => {
+    if (err) return next(err);
+    res.json({ success: true });
   });
 });
 

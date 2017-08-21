@@ -8,8 +8,9 @@
     "serve": "concurrently -k \"npm run --silent start\" \"npm run serve:web\"",
     "serve:web": "webpack-dev-server --config conf/webpack.dev.js --open",
     "build": "webpack --config conf/webpack.prod.js -p",
-    "lint": "./node_modules/.bin/eslint webapp/src",
-    "lints": "./node_modules/.bin/eslint server"
+    "lint": "npm run lint:web && npm run lint:server",
+    "lint:web": "./node_modules/.bin/eslint webapp/src",
+    "lint:server": "./node_modules/.bin/eslint server"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

@@ -25,7 +25,7 @@ module.exports = {
 
   getHashFromSalt(userpassword, salt) {
     const passwordData = sha512(userpassword, salt.toString('hex'));
-    
+
     return passwordData.passwordHash;
   },
 };
