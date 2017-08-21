@@ -1,8 +1,9 @@
 const ObjectID = require('mongodb').ObjectID;
 
 const mongoUtil = require('../helpers/mongoUtil.js');
+const cryptoUtil = require('../helpers/cryptoUtil.js');
 
-const collectionName = 'ideas';
+const collectionName = 'users';
 
 exports.all = (callback) => {
   mongoUtil.getDb().collection(collectionName).find().toArray((err, result) => {
@@ -16,17 +17,24 @@ exports.get = (id, callback) => {
   });
 };
 
-exports.new = (name, desc, rating, callback) => {
-  mongoUtil.getDb().collection(collectionName).insertOne({ name, desc, rating }, (err, result) => {
+exports.new = (username, password, isAdmin, callback) => {
+  const hashResult = cryptoUtil.saltHashPassword(password);
+  mongoUtil.getDb().collection(collectionName).insertOne({
+    username,
+    password: hashResult.passwordHash,
+    salt: hashResult.salt,
+    isAdmin,
+  }, (err, result) => {
     callback(err, result);
   });
 };
 
-exports.update = (id, newName, newDesc, newRating, callback) => {
+exports.update = (id, newUsername, newPassword, callback) => {
+  const hashResult = cryptoUtil.saltHashPassword(newPassword);
   mongoUtil.getDb().collection(collectionName).updateOne({ _id: ObjectID(id) }, {
-    name: newName,
-    desc: newDesc,
-    rating: newRating,
+    username: newUsername,
+    password: hashResult.passwordHash,
+    salt: hashResult.salt,
   }, (err) => {
     callback(err);
   });

@@ -1,11 +1,11 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const sinon = require('sinon');
 
-const idea = require('../models/idea.js');
+const user = require('../models/user.js');
 const mongoUtil = require('../helpers/mongoUtil.js');
+const cryptoUtil = require('../helpers/cryptoUtil.js');
 const ObjectID = require('mongodb').ObjectID;
 
-describe('Idea', () => {
+describe('User', () => {
   const testID = '597bbc564460d8074395ef8e';
 
   afterEach(() => {
@@ -19,7 +19,7 @@ describe('Idea', () => {
         collection: sinon.stub().returns({ findOne: callback }),
       });
 
-      idea.get(testID);
+      user.get(testID);
       sinon.assert.calledWith(callback, { _id: ObjectID(testID) });
     });
   });
@@ -27,24 +27,34 @@ describe('Idea', () => {
   describe('#new()', () => {
     it('should call insertOne(id) on db', () => {
       const callback = sinon.spy();
+
+      sinon.stub(cryptoUtil, 'saltHashPassword').returns({ salt: 'salt', passwordHash: 'hashed password' });
+
       sinon.stub(mongoUtil, 'getDb').returns({
         collection: sinon.stub().returns({ insertOne: callback }),
       });
 
-      idea.new('test', 'new idea', 10);
-      sinon.assert.calledWith(callback, { name: 'test', desc: 'new idea', rating: 10 });
+      user.new('username', 'password', false);
+      sinon.assert.calledWith(callback, { username: 'username', password: 'hashed password', salt: 'salt', isAdmin: false });
+
+      cryptoUtil.saltHashPassword.restore();
     });
   });
 
   describe('#update()', () => {
     it('should call updateOne(id) on db', () => {
       const callback = sinon.spy();
+
+      sinon.stub(cryptoUtil, 'saltHashPassword').returns({ salt: 'salt', passwordHash: 'hashed password' });
+
       sinon.stub(mongoUtil, 'getDb').returns({
         collection: sinon.stub().returns({ updateOne: callback }),
       });
 
-      idea.update(testID, 'test', 'update idea', 8);
-      sinon.assert.calledWith(callback, { _id: ObjectID(testID) }, { name: 'test', desc: 'update idea', rating: 8 });
+      user.update(testID, 'username', 'password');
+      sinon.assert.calledWith(callback, { _id: ObjectID(testID) }, { username: 'username', password: 'hashed password', salt: 'salt' });
+
+      cryptoUtil.saltHashPassword.restore();
     });
   });
 
@@ -55,7 +65,7 @@ describe('Idea', () => {
         collection: sinon.stub().returns({ deleteOne: callback }),
       });
 
-      idea.delete(testID);
+      user.delete(testID);
       sinon.assert.calledWith(callback, { _id: ObjectID(testID) });
     });
   });
