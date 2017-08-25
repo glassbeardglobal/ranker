@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import 'common/form.css';
+import Constants from 'common/js/constants';
+import 'common/styles/form.css';
 
 import FormError from '../Form/FormError';
 import './SignupForm.css';
@@ -34,7 +36,7 @@ class SignupForm extends Component {
     }
 
     const body = {
-      email: this.state.uEmail.value,
+      username: this.state.uEmail.value,
       password: this.state.uPassword.value
     };
     const fetchInit = {
@@ -45,14 +47,29 @@ class SignupForm extends Component {
       method: 'POST',
       body: JSON.stringify(body)
     };
-    fetch('/api/signup', fetchInit).then(response => response.json())
+
+    let responseOk;
+    fetch('/api/join', fetchInit)
+      .then((response) => {
+        responseOk = response.ok;
+        return response.json();
+      })
       .then((json) => {
+        if (!responseOk) {
+          throw new Error(json.message);
+        }
         // TODO: redirect on success, throw error on invalid
-        console.log(json);
+        window.localStorage.setItem(Constants.JWT_KEY_STORAGE, json.token);
+        this.props.redirect();
       })
       .catch((err) => {
+        let displayError = err.message;
+        if (!displayError) {
+          displayError = 'An unexpected error occured';
+        }
+
         this.setState({
-          errors: err.message
+          errors: displayError
         });
       });
   }
@@ -138,5 +155,9 @@ class SignupForm extends Component {
     );
   }
 }
+
+SignupForm.propTypes = {
+  redirect: PropTypes.func.isRequired
+};
 
 module.exports = SignupForm;

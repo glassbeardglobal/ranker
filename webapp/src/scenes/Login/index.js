@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import 'common/form.css';
+import 'common/styles/form.css';
+import Constants from 'common/js/constants';
 import FormError from 'components/Form/FormError';
 
 import './Login.css';
@@ -33,7 +35,7 @@ class Login extends Component {
     });
 
     const body = {
-      email: this.state.email,
+      username: this.state.email,
       password: this.state.password
     };
     const fetchInit = {
@@ -44,10 +46,20 @@ class Login extends Component {
       method: 'POST',
       body: JSON.stringify(body)
     };
-    fetch('/api/signup', fetchInit).then(response => response.json())
+
+    let responseOk;
+    fetch('/api/login', fetchInit)
+      .then((response) => {
+        responseOk = response.ok;
+        return response.json();
+      })
       .then((json) => {
-        // TODO: redirect on success, throw error on invalid
-        console.log(json);
+        if (!responseOk) {
+          throw new Error(json.message);
+        }
+
+        window.localStorage.setItem(Constants.JWT_KEY_STORAGE, json.token);
+        this.props.history.push('/boards');
       })
       .catch((err) => {
         this.setState({
@@ -94,5 +106,11 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
+};
 
 export default Login;
