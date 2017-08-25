@@ -44,8 +44,8 @@ module.exports = {
               loader: 'babel-loader',
               options: {
                 babelrc: false,
-                presets: ['latest', 'react'],
-                cacheDirectory: true
+                presets: ['env', 'react'],
+                cacheDirectory: false
               }
             }
           },
