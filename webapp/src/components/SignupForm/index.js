@@ -56,9 +56,8 @@ class SignupForm extends Component {
       })
       .then((json) => {
         if (!responseOk) {
-          throw new Error(json.message);
+          throw new Error(json.error);
         }
-        // TODO: redirect on success, throw error on invalid
         window.localStorage.setItem(Constants.JWT_KEY_STORAGE, json.token);
         this.props.redirect();
       })

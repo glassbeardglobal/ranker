@@ -55,7 +55,7 @@ class Login extends Component {
       })
       .then((json) => {
         if (!responseOk) {
-          throw new Error(json.message);
+          throw new Error(json.error);
         }
 
         window.localStorage.setItem(Constants.JWT_KEY_STORAGE, json.token);
