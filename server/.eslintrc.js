@@ -8,6 +8,7 @@ module.exports = {
       "sinon"
     ],
     "rules": {
-      "no-underscore-dangle": 0
+      "no-underscore-dangle": 0,
+      "consistent-return": 0
     }
 };

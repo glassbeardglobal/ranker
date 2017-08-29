@@ -1,5 +1,6 @@
 const express = require('express');
 const user = require('../models/user.js');
+const ideaboard = require('../models/ideaboard.js');
 
 const router = express.Router();
 
@@ -25,6 +26,14 @@ router.get('/:id', (req, res, next) => {
   }
   user.get(req.params.id, (err, value) => {
     if (err) return next(err);
+    res.json(value);
+  });
+});
+
+router.get('/:id/boards', (req, res, next) => {
+  ideaboard.getUserBoards(req.params.id, (err, value) => {
+    if (err) return next(err);
+    console.log(value);
     res.json(value);
   });
 });

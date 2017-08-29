@@ -1,10 +1,10 @@
 const sinon = require('sinon');
 
-const idea = require('../models/idea.js');
+const ideaboard = require('../models/ideaboard.js');
 const mongoUtil = require('../helpers/mongoUtil.js');
 const ObjectID = require('mongodb').ObjectID;
 
-describe('Idea', () => {
+describe('Idea Board', () => {
   const testID = '597bbc564460d8074395ef8e';
 
   afterEach(() => {
@@ -18,7 +18,7 @@ describe('Idea', () => {
         collection: sinon.stub().returns({ findOne: callback }),
       });
 
-      idea.get(testID);
+      ideaboard.get(testID);
       sinon.assert.calledWith(callback, { _id: ObjectID(testID) });
     });
   });
@@ -30,8 +30,8 @@ describe('Idea', () => {
         collection: sinon.stub().returns({ insertOne: callback }),
       });
 
-      idea.new('test', 'new idea', 10);
-      sinon.assert.calledWith(callback, { name: 'test', desc: 'new idea', rating: 10 });
+      ideaboard.new('test', 'owner');
+      sinon.assert.calledWith(callback, { name: 'test', owner: 'owner', members: ['owner'] });
     });
   });
 
@@ -42,8 +42,11 @@ describe('Idea', () => {
         collection: sinon.stub().returns({ updateOne: callback }),
       });
 
-      idea.update(testID, 'test', 'update idea', 8);
-      sinon.assert.calledWith(callback, { _id: ObjectID(testID) }, { name: 'test', desc: 'update idea', rating: 8 });
+      ideaboard.update(testID, 'name', ['add'], ['remove']);
+      sinon.assert.calledWith(callback, { _id: ObjectID(testID) }, {
+        $set: { name: 'name' },
+        $pushAll: { members: ['add'] },
+      });
     });
   });
 
@@ -54,7 +57,7 @@ describe('Idea', () => {
         collection: sinon.stub().returns({ deleteOne: callback }),
       });
 
-      idea.delete(testID);
+      ideaboard.delete(testID);
       sinon.assert.calledWith(callback, { _id: ObjectID(testID) });
     });
   });
