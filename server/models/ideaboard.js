@@ -5,13 +5,21 @@ const mongoUtil = require('../helpers/mongoUtil.js');
 const collectionName = 'ideaboards';
 
 exports.all = (callback) => {
-  mongoUtil.getDb().collection(collectionName).find().toArray((err, result) => {
+  mongoUtil.getDb().collection(collectionName).find({}, { name: 1 }).toArray((err, result) => {
     callback(err, result);
   });
 };
 
 exports.get = (id, callback) => {
   mongoUtil.getDb().collection(collectionName).findOne({ _id: ObjectID(id) }, (err, result) => {
+    callback(err, result);
+  });
+};
+
+exports.getUserBoards = (userID, callback) => {
+  mongoUtil.getDb().collection(collectionName).find({
+    members: { $all: [userID] } }).toArray(
+  (err, result) => {
     callback(err, result);
   });
 };

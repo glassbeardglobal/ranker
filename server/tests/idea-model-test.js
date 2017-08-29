@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const sinon = require('sinon');
 
 const idea = require('../models/idea.js');
