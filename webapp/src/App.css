@@ -1,4 +1,5 @@
-@import 'common/grid.css';
+@import 'common/styles/grid.css';
+@import 'common/styles/variables.css';
 
 * {
     box-sizing: border-box;
@@ -11,8 +12,10 @@ body {
 /* Header texts */
 h1,h2,h3,h4,h5,h6 {
     font-family: 'Open Sans', sans-serif;
+    color: $text-default;
 }
 
 a,p,label,input {
     font-family: 'Open Sans', sans-serif;
+    color: $text-default;
 }

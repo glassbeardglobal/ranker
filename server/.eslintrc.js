@@ -1,13 +1,14 @@
 module.exports = {
     "extends": "airbnb-base",
     "env": {
-      "mocha": true
+        "mocha": true
     },
     "plugins": [
-      "mocha",
-      "sinon"
+        "mocha",
+        "sinon"
     ],
     "rules": {
-      "no-underscore-dangle": 0
+        "no-underscore-dangle": 0,
+        "no-unused-vars": [2, { "argsIgnorePattern": "next" }]
     }
 };

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 const FormError = (props) => {
   const divStyle = {
-    fontSize: '11px',
-    color: '#f77'
+    fontSize: '11px'
   };
   const pStyle = {
-    margin: '0px'
+    margin: '0px',
+    color: '#f77'
   };
 
   return (
